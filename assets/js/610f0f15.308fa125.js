@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunktry_docusaurus_fullset=self.webpackChunktry_docusaurus_fullset||[]).push([[8442],{97942:s=>{s.exports=JSON.parse('{"permalink":"/try-docusaurus-fullset/blog/tags/facebook","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);
