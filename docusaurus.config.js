@@ -9,10 +9,11 @@ const config = {
   title: "Docusaurus OpenAPI Docs",
   tagline: "OpenAPI plugin for generating API reference docs in Docusaurus v2",
   url: "https://docs.farisekananda.dev",
-  baseUrl: "/",
+  baseUrl: "/try-docusaurus-fullset/",
   onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
+  trailingSlash: false,
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
