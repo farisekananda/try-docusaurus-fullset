@@ -8,12 +8,13 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const config = {
   title: "Docusaurus OpenAPI Docs",
   tagline: "OpenAPI plugin for generating API reference docs in Docusaurus v2",
-  url: "https://docs.farisekananda.dev",
-  baseUrl: "/try-docusaurus-fullset/",
+  url: "http://localhost",
+  baseUrl: "/",
   onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
   trailingSlash: false,
+  staticDirectories: ['static'],
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
