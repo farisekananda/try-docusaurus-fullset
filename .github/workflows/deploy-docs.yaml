@@ -27,6 +27,6 @@ jobs:
         with:
           add: -f files/build
           message: 'Update Docusaurus Build'
-          pull: --rebase --autostash
+          pull: --rebase --autostash origin main
 
 
