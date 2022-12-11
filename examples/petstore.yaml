@@ -9,6 +9,7 @@ servers:
 info:
   description: |
     # CHANGES IN OPENAPI FOLDER | MODIFY CONFLICT
+    # CHANGES IN OPENAPI FOLDER | UNFORTUNATELY I ALSO EDIT THIS LINE
     This is a sample server Petstore server. CHANGES
     You can find out more about Swagger at
     [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).
