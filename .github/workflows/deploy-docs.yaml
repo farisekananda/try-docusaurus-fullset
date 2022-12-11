@@ -5,8 +5,8 @@ on:
     types:
       - closed
     paths:
-      - '/docs/**'
-      - '/examples/**'
+      - 'docs/**'
+      - 'examples/**'
 
 jobs:
   build:
