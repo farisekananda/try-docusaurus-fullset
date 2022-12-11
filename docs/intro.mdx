@@ -17,18 +17,22 @@ tags:
 </head>
 
 <div align="center">
-<img width="200" src="https://user-images.githubusercontent.com/9343811/165975569-1bc29814-884c-4931-83df-860043b625b7.svg" />
+  <img
+    width="200"
+    src="https://user-images.githubusercontent.com/9343811/165975569-1bc29814-884c-4931-83df-860043b625b7.svg"
+  />
 </div>
 
 <div align="center">
 
 OpenAPI plugin for generating API reference docs in Docusaurus v2.
+Make Changes to the docs folder
 
 <img src="https://img.shields.io/badge/dynamic/json?style=for-the-badge&logo=meta&color=blueviolet&label=Docusaurus&query=dependencies%5B%22%40docusaurus%2Fcore%22%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FPaloAltoNetworks%2Fdocusaurus-openapi-docs%2Fmain%2Fdemo%2Fpackage.json" />
-<br/><br/>
+<br />
+<br />
 
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/PaloAltoNetworks/docusaurus-openapi-docs/blob/HEAD/LICENSE) [![npm latest package](https://img.shields.io/npm/v/docusaurus-plugin-openapi-docs/latest.svg)](https://www.npmjs.com/package/docusaurus-plugin-openapi-docs) [![npm downloads](https://img.shields.io/npm/dm/docusaurus-plugin-openapi-docs.svg)](https://www.npmjs.com/package/docusaurus-plugin-openapi-docs) [![npm canary package](https://img.shields.io/npm/v/docusaurus-plugin-openapi-docs/canary.svg)](https://www.npmjs.com/package/docusaurus-plugin-openapi-docs)
-
 
 <iframe
   src="https://ghbtns.com/github-btn.html?user=PaloAltoNetworks&amp;repo=docusaurus-openapi-docs&amp;type=star&amp;count=true&amp;size=large"
@@ -127,25 +131,25 @@ The `@theme/ApiItem` component is designed to be a drop-in replacement for `@the
 presets: [
   [
     "classic",
-    ({
+    {
       docs: {
         sidebarPath: require.resolve("./sidebars.js"),
         editUrl:
           "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
         docLayoutComponent: "@theme/DocPage",
         // highlight-next-line
-        docItemComponent: "@theme/ApiItem" // add @theme/ApiItem here
+        docItemComponent: "@theme/ApiItem", // add @theme/ApiItem here
       },
       blog: {
         showReadingTime: true,
         editUrl:
-          "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/"
+          "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
       },
       theme: {
-        customCss: require.resolve("./src/css/custom.css")
-      }
-    })
-  ]
+        customCss: require.resolve("./src/css/custom.css"),
+      },
+    },
+  ],
 ]
 ```
 
@@ -218,7 +222,6 @@ Options:
 yarn docusaurus gen-api-docs all
 ```
 
-
 > The following command will generate API docs for a specific `id`:
 
 ```bash
@@ -281,9 +284,9 @@ See [versions options](#versions) for a list of available options. For a complet
 
 The `docusaurus-plugin-openapi-docs` plugin can be configured with the following options:
 
-| Name          | Type     | Default | Description                                                                                                                                          |
-| ------------- | -------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------  |
-| `id`          | `string` | `null`  | A unique document id.                                                                                                                                |
+| Name           | Type     | Default | Description                                                                                                                                          |
+| -------------- | -------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`           | `string` | `null`  | A unique document id.                                                                                                                                |
 | `docsPluginId` | `string` | `null`  | The ID associated with the `plugin-content-docs` or `preset` instance used to render the OpenAPI docs (e.g. "your-plugin-id", "classic", "default"). |
 
 ### config
@@ -304,7 +307,6 @@ The `docusaurus-plugin-openapi-docs` plugin can be configured with the following
 
 ### sidebarOptions
 
-
 `sidebarOptions` can be configured with the following options:
 
 | Name                 | Type      | Default | Description                                                                                                                                                                                                                                                                                                                                                                                                                                          |
@@ -323,12 +325,12 @@ You may optionally configure a `sidebarOptions`. In doing so, an individual `sid
 
 `versions` can be configured with the following options:
 
-| Name                 | Type      | Default | Description                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| -------------------- | --------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `specPath`           | `string`  | `null`  | Designated URL or path to the source of an OpenAPI specification file or directory of micro OpenAPI specification files. |
-| `ouputDir`           | `string`  | `null`  | Desired output path for versioned, generated MDX files.                                                                  |
-| `label`              | `string`  | `null`  | _Optional:_ Version label used when generating version selector dropdown menu.                                           |
-| `baseUrl`            | `string`  | `null`  | _Optional:_ Version base URL used when generating version selector dropdown menu.                                        |
+| Name       | Type     | Default | Description                                                                                                              |
+| ---------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `specPath` | `string` | `null`  | Designated URL or path to the source of an OpenAPI specification file or directory of micro OpenAPI specification files. |
+| `ouputDir` | `string` | `null`  | Desired output path for versioned, generated MDX files.                                                                  |
+| `label`    | `string` | `null`  | _Optional:_ Version label used when generating version selector dropdown menu.                                           |
+| `baseUrl`  | `string` | `null`  | _Optional:_ Version base URL used when generating version selector dropdown menu.                                        |
 
 :::info NOTE
 All versions will automatically inherit `sidebarOptions` from the parent/base config.
