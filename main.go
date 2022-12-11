@@ -24,7 +24,7 @@ func router() http.Handler {
 	mux.HandleFunc("/", indexHandler)
 
 	// static files
-	httpFS := http.FileServer(http.Dir("build"))
+	httpFS := http.FileServer(http.Dir("files/build"))
 	mux.Handle("/assets/", httpFS)
 	mux.Handle("/img/", httpFS)
 
@@ -46,11 +46,11 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if r.URL.Path == "/favicon.ico" {
-		http.ServeFile(w, r, "build/favicon.ico")
+		http.ServeFile(w, r, "files/build/favicon.ico")
 		return
 	}
 
-	http.ServeFile(w, r, "build/index.html")
+	http.ServeFile(w, r, "files/build/index.html")
 }
 
 func greetingAPI(w http.ResponseWriter, r *http.Request) {
