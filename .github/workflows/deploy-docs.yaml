@@ -1,0 +1,33 @@
+name: Deploy API Docs
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - 'main'
+    paths:
+      - '/docs/**'
+      - '/examples/**'
+
+jobs:
+  build:
+    name: build docusarus
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      # Setup Node
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      # Setup Yarn and dependencies
+      - uses: bahmutov/npm-install@HEAD
+      # Generate, build, and copy to files/build for deployment
+      - run: yarn deploy-go
+      # Add and commit build folder ignoring .gitignore
+      - uses: EndBug/add-and-commit@v9
+        with:
+          add: -f files/build
+          message: 'Update Docusaurus Build'
+
+

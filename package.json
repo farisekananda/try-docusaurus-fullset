@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "yarn gen-api-docs all && yarn start",
+    "dev": "yarn clean && yarn gen && yarn start",
     "clean": "yarn clean-api-docs all",
-
-
+    "gen": "yarn gen-api-docs all && yarn gen-api-docs:version petstore_versioned:all",
+    "gen-build": "yarn clean && yarn gen && yarn build",
+    "deploy-go": "yarn gen-build && rsync -a --delete build/ files/build/",
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
     "build": "docusaurus build",
