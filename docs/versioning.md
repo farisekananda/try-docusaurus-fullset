@@ -5,7 +5,7 @@ sidebar_label: Versioning
 title: Versioning
 ---
 
-## Overview
+## Overview | MODIFY CONFLICT
 
 Although Docusaurus offers its own versioning system the OpenAPI Docs plugin comes equipped with one specifically aimed at versioning API docs. Aside from being relatively "lighter" than the Docusaurus system, it offers a way to automatically generate some useful UI components including:
 
@@ -79,8 +79,8 @@ Import:
 ```javascript
 const {
   versionSelector,
-} = require("docusaurus-plugin-openapi-docs/lib/sidebars/utils"); // imports utility
-const petstoreVersions = require("./docs/petstore/versions.json"); // imports Petstore versions.json
+} = require("docusaurus-plugin-openapi-docs/lib/sidebars/utils") // imports utility
+const petstoreVersions = require("./docs/petstore/versions.json") // imports Petstore versions.json
 ```
 
 Add to existing sidebar:
@@ -103,7 +103,7 @@ Import:
 ```javascript
 const {
   versionCrumb,
-} = require("docusaurus-plugin-openapi-docs/lib/sidebars/utils");
+} = require("docusaurus-plugin-openapi-docs/lib/sidebars/utils")
 ```
 
 Add to existing sidebar:
