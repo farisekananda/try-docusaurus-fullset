@@ -71,6 +71,7 @@ jobs:
       - name: Create Pull Request
         uses: docker://ghcr.io/repo-sync/pull-request:v2
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           source_branch: ${{ steps.param.outputs.build_branch }}
           destination_branch: main
           pr_title: '${{ steps.param.outputs.title }}'
