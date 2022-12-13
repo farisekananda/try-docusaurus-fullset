@@ -51,7 +51,7 @@ jobs:
           add: -f files/build
           message: '${{ steps.param.outputs.title }}'
           new_branch: ${{ steps.param.outputs.build_branch }}
-          pull: --rebase origin main
+          pull: --rebase --autostash origin main
           push: origin ${{ steps.param.outputs.build_branch }} --set-upstream --force
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
