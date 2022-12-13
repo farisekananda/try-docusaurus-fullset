@@ -47,35 +47,34 @@ jobs:
         run: |
           echo "current_date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
           echo "title=[Client] Update Docusaurus Build $(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-          echo "build_branch=docusaurus-build-$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-      - uses: EndBug/add-and-commit@v9
-        with:
-          add: -f files/build
-          message: '${{ steps.param.outputs.title }}'
-          new_branch: ${{ steps.param.outputs.build_branch }}
-          push: origin ${{ steps.param.outputs.build_branch }} --set-upstream --force
-      # - name: Create commits
-      #   run: |
-      #     git fetch --tags --force
-      #     git pull --rebase --autostash origin main
-      #     git add -f files/build
-      #     git commit -m '${{ steps.param.outputs.title }}'
-      # - name: Create Pull Request
-      #   uses: peter-evans/create-pull-request@v4
+          echo "build_branch=docusaurus-build-$(date +'%Y-%m-%d')-${{ env.base_branch }}" >> $GITHUB_OUTPUT
+      # - uses: EndBug/add-and-commit@v9
       #   with:
-      #     branch: ${{ steps.param.outputs.build_branch }}
-      #     base: ${{ env.base_branch }}
-      #     title: '${{ steps.param.outputs.title }}'
-      #     body: |
+      #     add: -f files/build
+      #     message: '${{ steps.param.outputs.title }}'
+      #     new_branch: ${{ steps.param.outputs.build_branch }}
+      #     push: origin ${{ steps.param.outputs.build_branch }} --set-upstream --force
+      # - name: Create Pull Request
+      #   uses: docker://ghcr.io/repo-sync/pull-request:v2
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     source_branch: ${{ steps.param.outputs.build_branch }}
+      #     destination_branch: main
+      #     pr_title: '${{ steps.param.outputs.title }}'
+      #     pr_body: |
       #       Source: ${{ env.base_branch }}
+      #       CreatedAt: ${{ steps.param.outputs.current_date }}
+      - name: Create commits
+        run: |
+          git add -f files/build
+          git commit -m '${{ steps.param.outputs.title }}'
       - name: Create Pull Request
-        uses: docker://ghcr.io/repo-sync/pull-request:v2
+        uses: peter-evans/create-pull-request@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          source_branch: ${{ steps.param.outputs.build_branch }}
-          destination_branch: main
-          pr_title: '${{ steps.param.outputs.title }}'
-          pr_body: |
+          branch: ${{ steps.param.outputs.build_branch }}
+          base: main
+          title: '${{ steps.param.outputs.title }}'
+          body: |
             Source: ${{ env.base_branch }}
             CreatedAt: ${{ steps.param.outputs.current_date }}
 
