@@ -4,12 +4,6 @@ sidebar_position: 1
 
 # Tutorial Intro | MODIFY THE DOCUMENTATION
 
-# Tutorial Intro | THIS IS MODIFIED AGAIN
-
-# Tutorial Intro | ADDED A NEW LINE | AND AGAIN
-
-# Tutorial Intro | ADDED A NEW LINE | I ALSO EDITED THIS LINE
-
 Let's discover **Docusaurus in less than 5 minutes**.
 
 ## Getting Started
