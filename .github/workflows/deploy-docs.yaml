@@ -4,7 +4,8 @@ on:
   # Run workflow after PR is closed.
   pull_request:
     types:
-      - closed
+      - opened
+      - synchronize
     paths:
       - 'docs/**'
       - 'examples/**'
@@ -40,35 +41,19 @@ jobs:
         run: yarn
       # Generate, build, and copy to files/build for deployment
       - run: yarn deploy-go
-      # Add and commit build folder ignoring .gitignore
-      # Alternatives: can use commit/PR name for the message to know the source of the build.
+      # Add, commit, and PR build folder ignoring .gitignore based on date and source branch
       - name: Set Build Branch Name
         id: param
         run: |
           echo "current_date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-          echo "title=[Client] Update Docusaurus Build $(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+          echo "title=[Client] Update Docusaurus Build from ${{ env.base_branch }}" >> $GITHUB_OUTPUT
           echo "build_branch=docusaurus-build-$(date +'%Y-%m-%d')-${{ env.base_branch }}" >> $GITHUB_OUTPUT
-      # - uses: EndBug/add-and-commit@v9
-      #   with:
-      #     add: -f files/build
-      #     message: '${{ steps.param.outputs.title }}'
-      #     new_branch: ${{ steps.param.outputs.build_branch }}
-      #     push: origin ${{ steps.param.outputs.build_branch }} --set-upstream --force
-      # - name: Create Pull Request
-      #   uses: docker://ghcr.io/repo-sync/pull-request:v2
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     source_branch: ${{ steps.param.outputs.build_branch }}
-      #     destination_branch: main
-      #     pr_title: '${{ steps.param.outputs.title }}'
-      #     pr_body: |
-      #       Source: ${{ env.base_branch }}
-      #       CreatedAt: ${{ steps.param.outputs.current_date }}
-      - name: Create commits
+      - name: Create Commits for Build Only
         run: |
           git config user.name '${{ github.actor }}'
           git config user.email '${{ github.actor }}@users.noreply.github.com'
           git add -f files/build
+          git checkout .
           git commit -m '${{ steps.param.outputs.title }}'
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
@@ -78,6 +63,7 @@ jobs:
           title: '${{ steps.param.outputs.title }}'
           body: |
             Source: ${{ env.base_branch }}
-            CreatedAt: ${{ steps.param.outputs.current_date }}
+            Triggered By: ${{ github.actor }}
+            Created At: ${{ steps.param.outputs.current_date }}
 
 
