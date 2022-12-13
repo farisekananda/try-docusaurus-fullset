@@ -1,12 +1,14 @@
 name: Deploy API Docs
 
 on:
+  # Run workflow after PR is closed.
   pull_request:
     types:
       - closed
     paths:
       - 'docs/**'
       - 'examples/**'
+  # If conflict or errors occured, can retry build manually.
   workflow_dispatch:
 
 jobs:
@@ -19,15 +21,27 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      # Setup Yarn and dependencies
-      - uses: bahmutov/npm-install@HEAD
+      # Setup Yarn
+      - name: Setup Yarn
+        run: npm install -g yarn
+      # Setup Node with yarn cache
+      - name: Setup Yarn Cache
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: yarn
+          cache-dependency-path: yarn.lock
       # Generate, build, and copy to files/build for deployment
       - run: yarn deploy-go
       # Add and commit build folder ignoring .gitignore
+      - name: Set Build Branch Name
+        id: param
+        run: echo "build_branch=docusaurus-build-$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
       - uses: EndBug/add-and-commit@v9
         with:
           add: -f files/build
           message: 'Update Docusaurus Build'
-          pull: --rebase --autostash origin main
+          new_branch: ${{ steps.param.outputs.build_branch }}
+          push: origin ${{ steps.param.outputs.build_branch }} --set-upstream --force
 
 
