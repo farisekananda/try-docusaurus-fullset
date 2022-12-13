@@ -15,6 +15,8 @@ jobs:
   build:
     name: build docusarus
     runs-on: ubuntu-latest
+    env:
+      base_branch: ${{ github.head_ref || github.ref_name }}
     steps:
       - uses: actions/checkout@v3
       # Setup Node
@@ -31,17 +33,33 @@ jobs:
           node-version: 18
           cache: yarn
           cache-dependency-path: yarn.lock
+      # Setup yarn dependencies
+      - name: Setup Yarn Dependencies
+        run: yarn
       # Generate, build, and copy to files/build for deployment
       - run: yarn deploy-go
       # Add and commit build folder ignoring .gitignore
+      # Alternatives: can use commit/PR name for the message to know the source of the build.
       - name: Set Build Branch Name
         id: param
-        run: echo "build_branch=docusaurus-build-$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+        run: |
+          echo "current_date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+          echo "title=[Client] Update Docusaurus Build $(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+          echo "build_branch=docusaurus-build-$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
       - uses: EndBug/add-and-commit@v9
         with:
           add: -f files/build
-          message: 'Update Docusaurus Build'
+          message: '${{ steps.param.outputs.title }}'
           new_branch: ${{ steps.param.outputs.build_branch }}
+          pull: --rebase origin main
           push: origin ${{ steps.param.outputs.build_branch }} --set-upstream --force
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          branch: ${{ steps.param.outputs.build_branch }}
+          base: main
+          title: '${{ steps.param.outputs.title }}'
+          body: |
+            Source: ${{ env.base_branch }}
 
 
