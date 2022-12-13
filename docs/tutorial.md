@@ -8,6 +8,8 @@ sidebar_position: 1
 
 # Tutorial Intro | ADDED A NEW LINE | AND AGAIN
 
+# Tutorial Intro | ADDED A NEW LINE | I ALSO EDITED THIS LINE
+
 Let's discover **Docusaurus in less than 5 minutes**.
 
 ## Getting Started
