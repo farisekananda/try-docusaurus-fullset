@@ -19,4 +19,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-files/build/*
+files/build
+docs/cos
+docs/food
+docs/petstore
+docs/petstore_versioned
+
