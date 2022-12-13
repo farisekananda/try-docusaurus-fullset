@@ -14,6 +14,7 @@ func main() {
 		IdleTimeout: time.Minute,
 	}
 
+	fmt.Println("Server is running on port ", srv.Addr)
 	srv.ListenAndServe()
 }
 
