@@ -53,7 +53,6 @@ jobs:
           add: -f files/build
           message: '${{ steps.param.outputs.title }}'
           new_branch: ${{ steps.param.outputs.build_branch }}
-          pull: --rebase --autostash origin main
           push: origin ${{ steps.param.outputs.build_branch }} --set-upstream --force
       # - name: Create commits
       #   run: |
