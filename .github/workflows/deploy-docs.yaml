@@ -19,6 +19,8 @@ jobs:
       base_branch: ${{ github.head_ref || github.ref_name }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ env.base_branch }}
       # Setup Node
       - uses: actions/setup-node@v3
         with:
@@ -46,26 +48,35 @@ jobs:
           echo "current_date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
           echo "title=[Client] Update Docusaurus Build $(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
           echo "build_branch=docusaurus-build-$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-      # - uses: EndBug/add-and-commit@v9
-      #   with:
-      #     add: -f files/build
-      #     message: '${{ steps.param.outputs.title }}'
-      #     new_branch: ${{ steps.param.outputs.build_branch }}
-      #     pull: --rebase --autostash origin main
-      #     push: origin ${{ steps.param.outputs.build_branch }} --set-upstream --force
-      - name: Create commits
-        run: |
-          git fetch --tags --force
-          git pull --rebase --autostash origin main
-          git add -f files/build
-          git commit -m '${{ steps.param.outputs.title }}'
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
+      - uses: EndBug/add-and-commit@v9
         with:
-          branch: ${{ steps.param.outputs.build_branch }}
-          base: ${{ env.base_branch }}
-          title: '${{ steps.param.outputs.title }}'
-          body: |
+          add: -f files/build
+          message: '${{ steps.param.outputs.title }}'
+          new_branch: ${{ steps.param.outputs.build_branch }}
+          pull: --rebase --autostash origin main
+          push: origin ${{ steps.param.outputs.build_branch }} --set-upstream --force
+      # - name: Create commits
+      #   run: |
+      #     git fetch --tags --force
+      #     git pull --rebase --autostash origin main
+      #     git add -f files/build
+      #     git commit -m '${{ steps.param.outputs.title }}'
+      # - name: Create Pull Request
+      #   uses: peter-evans/create-pull-request@v4
+      #   with:
+      #     branch: ${{ steps.param.outputs.build_branch }}
+      #     base: ${{ env.base_branch }}
+      #     title: '${{ steps.param.outputs.title }}'
+      #     body: |
+      #       Source: ${{ env.base_branch }}
+      - name: Create Pull Request
+        uses: repo-sync/pull-request@v2
+        with:
+          source_branch: ${{ steps.param.outputs.build_branch }}
+          destination_branch: main
+          pr_title: '${{ steps.param.outputs.title }}'
+          pr_body: |
             Source: ${{ env.base_branch }}
+            CreatedAt: ${{ steps.param.outputs.current_date }}
 
 
