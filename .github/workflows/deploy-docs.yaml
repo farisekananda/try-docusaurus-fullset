@@ -72,7 +72,7 @@ jobs:
           title: '${{ steps.param.outputs.title }}'
           body: |
             Source Branch: [${{ env.base_branch }}](${{ env.base_branch_url }})
-            Source PR: ${{ github.event.pull_request && [${{ github.event.pull_request.title }}](${{ github.event.pull_request.html_url }}) || 'Triggered manually' }}
+            Source PR: ${{ github.event.pull_request && github.event.pull_request.title || 'Triggered manually' }} [LINK](${{ github.event.pull_request && github.event.pull_request.html_url  || '#' }})
             Triggered By: ${{ github.actor }}
             Created At: ${{ steps.param.outputs.current_date }}
 
