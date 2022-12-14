@@ -45,7 +45,7 @@ jobs:
       - name: Set Build Branch Name
         id: param
         run: |
-          echo "current_date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+          echo "current_date=$(TZ=Asia/Jakarta date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
           echo "title=[Client] Update Docusaurus Build from ${{ env.base_branch }}" >> $GITHUB_OUTPUT
           echo "build_branch=docusaurus-build-$(date +'%Y-%m-%d')-${{ env.base_branch }}" >> $GITHUB_OUTPUT
       - name: Dump GitHub context
