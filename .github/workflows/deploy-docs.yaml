@@ -48,6 +48,14 @@ jobs:
           echo "current_date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
           echo "title=[Client] Update Docusaurus Build from ${{ env.base_branch }}" >> $GITHUB_OUTPUT
           echo "build_branch=docusaurus-build-$(date +'%Y-%m-%d')-${{ env.base_branch }}" >> $GITHUB_OUTPUT
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: echo "$JOB_CONTEXT"
       - name: Create Commits for Build Only
         run: |
           git config user.name '${{ github.actor }}'
@@ -66,13 +74,5 @@ jobs:
             Source PR: ${{ github.event.pull_request && '[${{ github.event.pull_request.title }}](${{ github.event.pull_request.html_url }})' || 'Triggered Manually' }}
             Triggered By: ${{ github.actor }}
             Created At: ${{ steps.param.outputs.current_date }}
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJson(job) }}
-        run: echo "$JOB_CONTEXT"
 
 
