@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunktry_docusaurus_fullset=self.webpackChunktry_docusaurus_fullset||[]).push([[2677],{2528:e=>{e.exports=JSON.parse('{"label":"openapi","permalink":"/tags/openapi","allTagsPath":"/tags","count":1,"items":[{"id":"intro","title":"Overview","description":"<img","permalink":"/"}]}')}}]);
