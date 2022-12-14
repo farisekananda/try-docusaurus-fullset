@@ -62,8 +62,17 @@ jobs:
           base: main
           title: '${{ steps.param.outputs.title }}'
           body: |
-            Source: ${{ env.base_branch }}
+            Source Branch: [${{ env.base_branch }}](#)
+            Source PR: ${{ github.event.pull_request && '[${{ github.event.pull_request.title }}](${{ github.event.pull_request.html_url }})' || 'Triggered Manually' }}
             Triggered By: ${{ github.actor }}
             Created At: ${{ steps.param.outputs.current_date }}
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: echo "$JOB_CONTEXT"
 
 
